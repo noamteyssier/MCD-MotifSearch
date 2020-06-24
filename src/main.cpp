@@ -18,10 +18,11 @@ int main(int argc, char* argv[]){
     return -1;
   }
 
-  string fn = argv[1];
+  string input_fn = argv[1];
+  string output_fn = argv[2];
   int minimum_distance = atoi(argv[3]);
 
-  vector<KmerObj> kmer_vec = BuildKmerSet(fn);
+  vector<KmerObj> kmer_vec = BuildKmerSet(input_fn);
   int num_records = kmer_vec.size();
 
   Network n;
@@ -32,7 +33,7 @@ int main(int argc, char* argv[]){
     #pragma omp parallel
     for (int j = i + 1; j < num_records; j++){
 
-      int min_dist = KmerDist(kmer_vec[i], kmer_vec[j]);
+      int min_dist = KmerDist(kmer_vec[i], kmer_vec[j], minimum_distance);
 
       if (min_dist <= minimum_distance) {
 
@@ -43,7 +44,7 @@ int main(int argc, char* argv[]){
     }
   }
 
-  n.WriteNetwork(argv[2]);
+  n.WriteNetwork(output_fn);
 
   return 0;
 }

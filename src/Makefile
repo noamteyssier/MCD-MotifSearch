@@ -7,7 +7,7 @@ CC=g++
 # LIBS = $(BOOST_PO) $(BOOST_FS)
 
 # compiler flags
-CFLAGS= -g -Wall -fopenmp #-I /usr/include/boost
+CFLAGS= -g -Wall -Ofast -march=native -fopenmp #-I /usr/include/boost
 
 BINARY = bin/distance_network
 MAIN = main.cpp

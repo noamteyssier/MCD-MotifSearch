@@ -131,10 +131,35 @@ int KmerDist(KmerObj k1, KmerObj k2) {
     }
   }
 
+  // returns first element of ordered set
+  int minimum = *std::next(string_distances.begin(), 0);
 
-  int minimum = *std::min_element(
-    string_distances.begin(), string_distances.end()
-  );
+  return minimum;
+}
+
+// Calculates the minimum distance between two sets of kmers
+int KmerDist(KmerObj k1, KmerObj k2, int minimum_distance) {
+  // Returns the minimum distance between all kmer substrings
+
+  set<int> string_distances;
+
+  for (auto & s1 : k1.get_kmerset()) {
+
+    for (auto & s2 : k2.get_kmerset()) {
+
+      int strdist = StringDist(s1, s2);
+
+      string_distances.insert(strdist);
+
+      if (strdist <= minimum_distance) {
+        return strdist;
+      }
+
+    }
+  }
+
+  // returns first element of ordered set
+  int minimum = *std::next(string_distances.begin(), 0);
 
   return minimum;
 }

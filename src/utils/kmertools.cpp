@@ -7,7 +7,7 @@
 #include "kmertools.h"
 
 
-KmerObj::KmerObj(std::string header, std::string sequence) : header(header), sequence(sequence) 
+KmerObj::KmerObj(std::string header, std::string sequence) : header(header), sequence(sequence)
 {
   build_set();
 }
@@ -21,29 +21,31 @@ KmerObj::KmerObj(Record r) : KmerObj(r.header, r.sequence) {};
 
 KmerObj::KmerObj(Record r, int kmer_size) : KmerObj(r.header, r.sequence, kmer_size) {};
 
-void KmerObj::build_set() 
+void KmerObj::build_set()
 {
   // Builds a set of unique kmers for a sequence
   int seq_size = sequence.length();
 
-  for (int i = 0; i < seq_size - kmer_size + 1; i++) 
+  for (int i = 0; i < seq_size - kmer_size + 1; i++)
   {
     std::string kmer = sequence.substr(i, kmer_size);
     kmer_set.insert(kmer);
   }
+
+  std::copy(kmer_set.begin(), kmer_set.end(), std::back_inserter(kmer_vec));
 }
 
-std::set<std::string> KmerObj::get_kmerset() 
+const std::vector<std::string>& KmerObj::get_kmervec()
 {
-  return kmer_set;
+  return kmer_vec;
 }
 
-std::string KmerObj::get_header() 
+std::string KmerObj::get_header()
 {
   return header;
 }
 
-void KmerObj::print() 
+void KmerObj::print()
 {
   // prints header, sequence, and kmerset
   std::cout << header << " : " << sequence << '\n';
@@ -57,12 +59,12 @@ void KmerObj::print()
 
 
 // Converts a vector of Records to a vector of KmerObjs
-std::vector<KmerObj> Records_to_KmerObjs(std::vector<Record> record_vec) 
+std::vector<KmerObj> Records_to_KmerObjs(std::vector<Record> record_vec)
 {
 
   std::vector<KmerObj> kmer_vec;
 
-  for (const auto & record : record_vec) 
+  for (const auto & record : record_vec)
   {
     KmerObj kmerobj(record);
     kmer_vec.push_back(kmerobj);
@@ -73,7 +75,7 @@ std::vector<KmerObj> Records_to_KmerObjs(std::vector<Record> record_vec)
 }
 
 // Creates a kmer set for each record in a fasta file
-std::vector<KmerObj> BuildKmerSet(std::string fn) 
+std::vector<KmerObj> BuildKmerSet(std::string fn)
 {
   // Builds a kmer set from a file path
 
@@ -86,27 +88,30 @@ std::vector<KmerObj> BuildKmerSet(std::string fn)
 }
 
 //  Calculates the distance between two strings of equal length
-int StringDist(std::string s1, std::string s2) {
-  // distance between two strings of same length
-  int strlen = s1.length();
-  int dist = strlen;
+int StringDist(const std::string& s1, const std::string& s2) {
+  // int strlen = s1.length();
+  // int dist = strlen;
+  // int strlen = 7;
+  int dist = 7;
 
-  for (int i = 0; i < strlen; i++) {
+  for (int i = 0; i < 7; i++) {
+
     if (s1[i] == s2[i]){
       dist--;
     }
+
   }
 
   return dist;
 }
 
-int KmerDist(KmerObj k1, KmerObj k2) 
+int KmerDist(KmerObj k1, KmerObj k2)
 {
   std::set<int> string_distances;
 
-  for (const auto & s1 : k1.get_kmerset()) {
+  for (const auto & s1 : k1.get_kmervec()) {
 
-    for (const auto & s2 : k2.get_kmerset()) {
+    for (const auto & s2 : k2.get_kmervec()) {
 
       int strdist = StringDist(s1, s2);
 
@@ -122,32 +127,29 @@ int KmerDist(KmerObj k1, KmerObj k2)
 }
 
 // Calculates the minimum distance between two sets of kmers
-int KmerDist(KmerObj k1, KmerObj k2, int minimum_distance) 
+int KmerDist(KmerObj k1, KmerObj k2, int minimum_distance)
 {
   // Returns the minimum distance between all kmer substrings
 
-  std::set<int> string_distances;
+  // std::set<int> string_distances;
+  int strdist;
+  int current_minimum = 1000;
 
-  for (auto & s1 : k1.get_kmerset()) {
+  for (const auto & s1 : k1.get_kmervec()) {
 
-    for (auto & s2 : k2.get_kmerset()) {
+    for (const auto & s2 : k2.get_kmervec()) {
 
-      int strdist = StringDist(s1, s2);
-
-      string_distances.insert(strdist);
+      strdist = StringDist(s1, s2);
 
       if (strdist <= minimum_distance) {
         return strdist;
+      }
+      else if (strdist < current_minimum) {
+        current_minimum = strdist;
       }
 
     }
   }
 
-  // returns first element of ordered set
-  int minimum = *std::next(string_distances.begin(), 0);
-
-  return minimum;
+  return current_minimum;
 }
-
-
-

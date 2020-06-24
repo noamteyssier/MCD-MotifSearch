@@ -17,7 +17,7 @@ public :
 
     KmerObj(Record r, int kmer_size);
 
-    std::set<std::string> get_kmerset();
+    const std::vector<std::string>& get_kmervec();
 
     std::string get_header();
 
@@ -28,6 +28,7 @@ private:
     std::string sequence;
     int kmer_size = 7;
     std::set<std::string> kmer_set;
+    std::vector<std::string> kmer_vec;
     void build_set();
 };
 
@@ -38,7 +39,7 @@ std::vector<KmerObj> Records_to_KmerObjs(std::vector<Record> record_vec);
 std::vector<KmerObj> BuildKmerSet(std::string fn);
 
 //  Calculates the distance between two strings of equal length
-int StringDist(std::string s1, std::string s2);
+int StringDist(const std::string& s1, const std::string& s2);
 
 // Calculates the minimum distance between two sets of kmers
 int KmerDist(KmerObj k1, KmerObj k2);

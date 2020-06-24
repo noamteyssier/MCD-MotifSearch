@@ -11,7 +11,6 @@
 
 
 
-
 int main(int argc, char* argv[]){
 
   if (argc != 4) {
@@ -31,10 +30,9 @@ int main(int argc, char* argv[]){
 
   Network n;
 
-  #pragma omp parallel
+  #pragma omp parallel for
   for (int i = 0; i < num_records; i++){
 
-    #pragma omp parallel
     for (int j = i + 1; j < num_records; j++){
 
       int min_dist = KmerDist(kmer_vec[i], kmer_vec[j], minimum_distance);

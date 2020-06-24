@@ -1,5 +1,5 @@
 # compiler
-CC=ccache g++
+CC=g++
 
 # libraries
 # BOOST_PO = -l boost_program_options

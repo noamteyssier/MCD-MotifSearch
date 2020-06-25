@@ -63,7 +63,6 @@ int main(int argc, char* argv[]){
   for (auto & n : NetworkVec)
   {
     n.WriteNetwork(outfile);
-    outfile << "----" << std::endl;
   }
 
   outfile.close();

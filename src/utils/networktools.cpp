@@ -1,6 +1,6 @@
 
 #include <fstream>
-
+#include <mutex>
 #include "networktools.h"
 
 
@@ -9,8 +9,11 @@
 
 void NodeSet::AddNode(Node node_name)
 {
+  mutex.lock();
   node_set.insert(node_name);
+  mutex.unlock();
 }
+
 
 const std::set<Node> NodeSet::GetSet()
 {
@@ -22,7 +25,9 @@ const std::set<Node> NodeSet::GetSet()
 
 void EdgeSet::AddEdge(Edge e)
 {
+  mutex.lock();
   edge_set.insert(e);
+  mutex.unlock();
 }
 
 const std::set<Edge> EdgeSet::GetSet()

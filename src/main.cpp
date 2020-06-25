@@ -27,6 +27,7 @@ int main(int argc, char* argv[]){
   std::vector<KmerObj> kmer_vec = BuildKmerSet(input_fn);
   int num_records = kmer_vec.size();
 
+
   Network n;
 
   #pragma omp parallel for

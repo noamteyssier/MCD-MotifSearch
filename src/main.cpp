@@ -26,12 +26,14 @@ int main(int argc, char* argv[]){
 
   std::vector<KmerObj> kmer_vec = BuildKmerSet(input_fn);
   int num_records = kmer_vec.size();
+  std::mutex mtx;
 
 
-  Network n;
+  std::vector<Network> NetworkVec;
 
   #pragma omp parallel for
   for (int i = 0; i < num_records; i++){
+    Network n;
 
     for (int j = i + 1; j < num_records; j++){
 
@@ -40,13 +42,32 @@ int main(int argc, char* argv[]){
       if (min_dist <= minimum_distance) {
 
         n.AddPair(kmer_vec[i].get_header(), kmer_vec[j].get_header(), min_dist);
+
       }
 
     }
 
+    // only append to vector if edges are found
+    if (n.GetSize() > 0){
+      mtx.lock();
+      NetworkVec.push_back(n);
+      mtx.unlock();
+    }
+
   }
 
-  n.WriteNetwork(output_fn);
+
+  std::ofstream outfile(output_fn, std::ofstream::out);
+  outfile << "node1\tnode2\tdistance" << "\n";
+
+  for (auto & n : NetworkVec)
+  {
+    n.WriteNetwork(outfile);
+    outfile << "----" << std::endl;
+  }
+
+  outfile.close();
+
 
   return 0;
 }

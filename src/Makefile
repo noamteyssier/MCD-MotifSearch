@@ -1,5 +1,4 @@
 # compiler
-CC=g++
 
 # libraries
 # BOOST_PO = -l boost_program_options
@@ -7,16 +6,16 @@ CC=g++
 # LIBS = $(BOOST_PO) $(BOOST_FS)
 
 # compiler flags
-CFLAGS= -g -Wall -fopenmp #-I /usr/include/boost
+CXX 		= /usr/local/opt/llvm/bin/clang++
+CXXFLAGS	= -std=c++17 -Ofast -march=native -g -Wall
+LDFLAGS		= -fopenmp -L/usr/local/opt/libomp/lib/
+OBJFILES 	= main.o utils/kmertools.o utils/networktools.o
+TARGET   	= bin/distance_network
 
-BINARY = bin/distance_network
-MAIN = main.cpp
-UTILS = utils/*.hpp
+all: $(TARGET)
 
-all: $(BINARY)
-
-$(BINARY): $(MAIN)
-	$(CC) $(CFLAGS) $(UTILS) $(MAIN) -o $(BINARY)
+$(TARGET): $(OBJFILES)
+	$(CXX) $(CFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJFILES)
 
 clean:
-	rm -v $(BINARY)
+	rm -v $(TARGET) $(OBJFILES)

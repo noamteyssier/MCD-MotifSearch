@@ -7,41 +7,49 @@
 #include "kmertools.h"
 
 
+// KmerObj Class Methods
+
 KmerObj::KmerObj(std::string header, std::string sequence) : header(header), sequence(sequence)
 {
   build_set();
 }
+
 
 KmerObj::KmerObj(std::string header, std::string sequence, int kmer_size) : header(header), sequence(sequence), kmer_size(kmer_size)
 {
   build_set();
 };
 
+
 KmerObj::KmerObj(Record r) : KmerObj(r.header, r.sequence) {};
+
 
 KmerObj::KmerObj(Record r, int kmer_size) : KmerObj(r.header, r.sequence, kmer_size) {};
 
+
 void KmerObj::build_set()
 {
-  // Builds a set of unique kmers for a sequence
-  int seq_size = sequence.length();
+  // Builds a set of all kmers for a sequence
+  const int seq_size = sequence.length();
+  const int array_size = seq_size - kmer_size + 1;
 
-  for (int i = 0; i < seq_size - kmer_size + 1; i++)
+  // std::vector<std::string> kmer_array;
+  kmer_vec.reserve(array_size);
+
+  for (int i = 0; i < array_size; i++)
   {
     std::string kmer = sequence.substr(i, kmer_size);
-    // std::string kmer = sequence;
-    kmer_set.insert(kmer);
+    kmer_vec.push_back(kmer);
   }
 
-  std::copy(kmer_set.begin(), kmer_set.end(), std::back_inserter(kmer_vec));
 }
 
-const std::vector<std::string>& KmerObj::get_kmervec()
+const std::vector<std::string>& KmerObj::get_kmervec() const
 {
   return kmer_vec;
 }
 
-std::string KmerObj::get_header()
+const std::string KmerObj::get_header() const
 {
   return header;
 }
@@ -51,12 +59,15 @@ void KmerObj::print()
   // prints header, sequence, and kmerset
   std::cout << header << " : " << sequence << '\n';
 
-  for (auto & x : kmer_set)
+  for (auto & x : kmer_vec)
   {
     std::cout << x  << " ";
   }
   std::cout << '\n';
 }
+
+
+// Functional methods
 
 
 // Converts a vector of Records to a vector of KmerObjs

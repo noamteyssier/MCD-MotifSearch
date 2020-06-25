@@ -10,7 +10,6 @@
 #include "utils/networktools.h"
 
 
-
 int main(int argc, char* argv[]){
 
   if (argc != 4) {
@@ -30,7 +29,7 @@ int main(int argc, char* argv[]){
 
   Network n;
 
-  // #pragma omp parallel for
+  #pragma omp parallel for
   for (int i = 0; i < num_records; i++){
 
     for (int j = i + 1; j < num_records; j++){
@@ -39,10 +38,9 @@ int main(int argc, char* argv[]){
 
       if (min_dist <= minimum_distance) {
 
-        n.AddPair(
-          kmer_vec[i].get_header(), kmer_vec[j].get_header(), min_dist
-        );
+        n.AddPair(kmer_vec[i].get_header(), kmer_vec[j].get_header(), min_dist);
       }
+
     }
 
   }

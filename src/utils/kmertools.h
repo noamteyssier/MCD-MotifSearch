@@ -17,17 +17,17 @@ public :
 
     KmerObj(Record r, int kmer_size);
 
-    const std::vector<std::string>& get_kmervec();
+    const std::vector<std::string>& get_kmervec() const;
 
-    std::string get_header();
+    const std::string get_header() const;
 
     void print();
 
 private:
-    std::string header;
-    std::string sequence;
-    int kmer_size = 7;
-    std::set<std::string> kmer_set;
+    const std::string header;
+    const std::string sequence;
+    const int kmer_size = 7;
+    const int arr_size = (sequence.length() - kmer_size + 1);
     std::vector<std::string> kmer_vec;
     void build_set();
 };

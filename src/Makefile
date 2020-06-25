@@ -6,7 +6,7 @@
 # LIBS = $(BOOST_PO) $(BOOST_FS)
 
 # compiler flags
-CXX 		= /usr/local/opt/llvm/bin/clang++
+# CXX 		= /usr/local/opt/llvm/bin/clang++
 CXXFLAGS	= -std=c++17 -Ofast -march=native -g -Wall
 LDFLAGS		= -fopenmp -L/usr/local/opt/libomp/lib/
 OBJFILES 	= main.o utils/kmertools.o utils/networktools.o

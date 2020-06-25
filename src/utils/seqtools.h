@@ -1,25 +1,23 @@
 #ifndef SEQTOOLS
 #define SEQTOOLS
 
-#include <iostream>
 #include <string>
 #include <vector>
-using namespace std;
 
 
 struct Record
 {
-  string header;
-  string sequence;
+  std::string header;
+  std::string sequence;
 };
 
 template <class Reader>
-vector<Record> read_stream(Reader& stream){
+std::vector<Record> read_stream(Reader& stream){
   /*
   Reads stream into a vector of records and returns vector
   */
 
-  vector<Record> record_vec;
+  std::vector<Record> record_vec;
 
   while (true){
     Record r;

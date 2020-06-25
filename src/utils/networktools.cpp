@@ -7,11 +7,17 @@
 
 // NodeSet Class Functions
 
+NodeSet::NodeSet()
+{
+  mutex = new std::mutex();
+}
+
+
 void NodeSet::AddNode(Node node_name)
 {
-  mutex.lock();
+  mutex->lock();
   node_set.insert(node_name);
-  mutex.unlock();
+  mutex->unlock();
 }
 
 
@@ -23,11 +29,16 @@ const std::set<Node> NodeSet::GetSet()
 
 // Edge Class Functions
 
+EdgeSet::EdgeSet()
+{
+  mutex = new std::mutex();
+}
+
 void EdgeSet::AddEdge(Edge e)
 {
-  mutex.lock();
+  mutex->lock();
   edge_set.insert(e);
-  mutex.unlock();
+  mutex->unlock();
 }
 
 const std::set<Edge> EdgeSet::GetSet()

@@ -14,9 +14,10 @@ class NodeSet
 {
 private:
   std::set<Node> node_set;
-  mutable std::mutex mutex;
+  std::mutex * mutex;
 
 public:
+  NodeSet();
   void AddNode(Node node_name);
   const std::set<Node> GetSet();
 };
@@ -26,11 +27,13 @@ class EdgeSet
 {
 private:
   std::set<Edge> edge_set;
-  mutable std::mutex mutex;
+  std::mutex * mutex;
 
 public:
+  EdgeSet();
   void AddEdge(Edge e);
   const std::set<Edge> GetSet();
+  EdgeSet operator+(EdgeSet& other_edgeset);
 };
 
 

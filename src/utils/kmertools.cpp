@@ -29,6 +29,7 @@ void KmerObj::build_set()
   for (int i = 0; i < seq_size - kmer_size + 1; i++)
   {
     std::string kmer = sequence.substr(i, kmer_size);
+    // std::string kmer = sequence;
     kmer_set.insert(kmer);
   }
 
@@ -66,8 +67,7 @@ std::vector<KmerObj> Records_to_KmerObjs(std::vector<Record> record_vec)
 
   for (const auto & record : record_vec)
   {
-    KmerObj kmerobj(record);
-    kmer_vec.push_back(kmerobj);
+    kmer_vec.emplace_back(record);
   }
 
   return kmer_vec;

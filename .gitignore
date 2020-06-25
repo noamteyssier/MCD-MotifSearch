@@ -5,3 +5,6 @@ results/*
 .vscode/
 
 *.o
+
+perf*
+

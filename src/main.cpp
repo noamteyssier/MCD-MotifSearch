@@ -30,7 +30,7 @@ int main(int argc, char* argv[]){
 
   Network n;
 
-  #pragma omp parallel for
+  // #pragma omp parallel for
   for (int i = 0; i < num_records; i++){
 
     for (int j = i + 1; j < num_records; j++){
@@ -44,6 +44,7 @@ int main(int argc, char* argv[]){
         );
       }
     }
+
   }
 
   n.WriteNetwork(output_fn);

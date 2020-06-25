@@ -44,6 +44,7 @@ int StringDist(const std::string& s1, const std::string& s2);
 // Calculates the minimum distance between two sets of kmers
 int KmerDist(KmerObj k1, KmerObj k2);
 
+// Overloaded with minimum distance provided to exit when condition met
 int KmerDist(KmerObj k1, KmerObj k2, int minimum_dist);
 
 

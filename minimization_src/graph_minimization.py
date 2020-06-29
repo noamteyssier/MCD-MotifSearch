@@ -13,10 +13,10 @@ def run_cliquer(dimacs_fn):
     Run cliquer on a given dimacs file
     """
     arguments = (
-        "./cl", "-s", "-x", dimacs_fn
+        "./cl", "-s", "-x", "-u", dimacs_fn
     )
 
-    popen = subprocess.Popen(arguments, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    popen = subprocess.Popen(arguments, stdout=subprocess.PIPE)
     popen.wait()
 
     output = popen.stdout.read().decode("UTF-8")

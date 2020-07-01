@@ -13,7 +13,7 @@ outdir=$3
 linkage_fn=${outdir}/${base_name}.edgelist
 dimacs_fn=${outdir}/${base_name}.dimacs
 conv_fn=${outdir}/${base_name}.conv.txt
-min_outdir=${outdir}/results
+min_outdir=${outdir}/cliques
 merged_cliques=${min_outdir}/merged_cliques.tab
 final_cliques=${outdir}/${base_name}.cliques.edgelist
 
@@ -35,7 +35,7 @@ fi
 mkdir $outdir
 
 # copies input fasta to outdir
-cp -v ${input_fa} ${outdir}/
+cp -v ${input_fa} ${outdir}/{base_name}.fa
 
 # calculates linkages on fasta
 ${link_dir}/bin/distance_network ${input_fa} ${linkage_fn} 1

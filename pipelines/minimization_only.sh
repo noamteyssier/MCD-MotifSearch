@@ -13,7 +13,7 @@ outdir=$3
 # linkage_fn=${outdir}/${base_name}.edgelist
 dimacs_fn=${outdir}/${base_name}.dimacs
 conv_fn=${outdir}/${base_name}.conv.txt
-min_outdir=${outdir}/results
+min_outdir=${outdir}/cliques
 merged_cliques=${min_outdir}/merged_cliques.tab
 final_cliques=${outdir}/${base_name}.cliques.edgelist
 

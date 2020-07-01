@@ -37,9 +37,6 @@ else
 fi
 echo
 
-# calculates linkages on fasta
-# ${link_dir}/bin/distance_network ${input_fa} ${linkage_fn} 1
-
 # creates dimacs and conversion table from edgelist
 ${min_dir}/edgelist_to_dimacs.py -i ${linkage_fn} -n ${outdir}/${base_name}
 

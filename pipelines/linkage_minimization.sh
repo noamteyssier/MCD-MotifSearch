@@ -34,6 +34,8 @@ if [ -d $outdir ]; then
 fi
 mkdir $outdir
 
+# copies input fasta to outdir
+cp -v ${input_fa} ${outdir}/
 
 # calculates linkages on fasta
 ${link_dir}/bin/distance_network ${input_fa} ${linkage_fn} 1

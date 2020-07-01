@@ -23,4 +23,13 @@ time meme-meme \
   -mod anr -nmotifs 3 -minw 6 -maxw 12 \
   -objfun classic -markov_order 0 -V
 
+# create visualization html from xml
 meme-meme_xml_to_html ${output_dir}/meme.xml ${output_dir}/meme.html
+
+# extract meme motif information
+meme-meme-get-motif -all ${output_dir}/meme.txt > ${output_dir}/minimal_meme.txt
+
+# create motif fasta
+fgrep "MOTIF" ${output_dir}/minimal_meme.txt | \
+  awk 'OFS="\n"{print ">"$3,$2}' \
+  > ${output_dir}/motif.fa

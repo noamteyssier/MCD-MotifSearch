@@ -47,13 +47,14 @@ if [ -d ${output_dir} ]; then
   echo "Overwriting existing output directory..."
   rm -rfv ${output_dir}
 fi
-
 mkdir -v ${output_dir}
+
 
 # create custom background model for the clique set using the input fasta
 meme-fasta-get-markov -m 0 -protein ${fasta_fn} > ${bg_model}
 
 
+# iterate through cliques and run meme on each
 for clique_fn in ${clique_dir}/clique_*.tab; do
 
   clique_idx=$(basename ${clique_fn} .tab)
@@ -68,5 +69,5 @@ for clique_fn in ${clique_dir}/clique_*.tab; do
   bash ${ca_dir}/run_meme.sh \
     ${clique_fa} ${bg_model} ${clique_outdir}
 
-  # break;
+
 done;

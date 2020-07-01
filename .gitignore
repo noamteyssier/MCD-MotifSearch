@@ -8,3 +8,4 @@ results/*
 
 perf*
 
+notebooks/.ipynb_checkpoints/*

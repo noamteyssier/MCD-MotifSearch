@@ -71,3 +71,9 @@ for clique_fn in ${clique_dir}/clique_*.tab; do
 
 
 done;
+
+# consolidate clique motif fastas
+for i in ${output_dir}/*/ ; do
+  clique_idx=$(basename $i);
+  sed "s/>/>${clique_idx}_/" ${i}/motif.fa;
+done > ${output_dir}/merged_motifs.fa

@@ -20,7 +20,9 @@ time meme-meme \
   -protein \
   -oc ${output_dir} \
   -bfile ${bg_model} \
-  -mod anr -nmotifs 50 -minw 6 -maxw 12 \
+  -mod anr \
+  -nmotifs 50 -minw 7 -maxw 12 \
+  -evt 1e-05 \
   -objfun classic -markov_order 0 -V
 
 # create visualization html from xml

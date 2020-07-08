@@ -35,7 +35,7 @@ meme-meme_xml_to_html ${output_dir}/meme.xml ${output_dir}/meme.html
 meme-meme-get-motif -all ${output_dir}/meme.txt > ${output_dir}/minimal_meme.txt
 
 # create motif fasta
-${ca_dir}/motif_parser \
+${ca_src}/motif_parser.py \
   -i ${output_dir}/minimal_meme.txt \
   -o ${output_dir}/motif.fa
   

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+git_dir=${HOME}/projects/UndirectedNetwork
+ca_src=${git_dir}/src/clique_analysis
+
 input_fa=$1
 bg_model=$2
 output_dir=$3
@@ -32,6 +35,10 @@ meme-meme_xml_to_html ${output_dir}/meme.xml ${output_dir}/meme.html
 meme-meme-get-motif -all ${output_dir}/meme.txt > ${output_dir}/minimal_meme.txt
 
 # create motif fasta
-fgrep "MOTIF" ${output_dir}/minimal_meme.txt | \
-  awk 'OFS="\n"{print ">"$3,$2}' \
-  > ${output_dir}/motif.fa
+${ca_dir}/motif_parser \
+  -i ${output_dir}/minimal_meme.txt \
+  -o ${output_dir}/motif.fa
+  
+# fgrep "MOTIF" ${output_dir}/minimal_meme.txt | \
+#   awk 'OFS="\n"{print ">"$3,$2}' \
+#   > ${output_dir}/motif.fa

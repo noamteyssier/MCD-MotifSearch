@@ -24,6 +24,7 @@ if [ ! -f ${input_db} ]; then
 fi
 
 
+# run motif search in dataset
 for clique_dir in ${motifs_dir}/*/; do
   
   clique_num=$(basename $clique_dir)
@@ -33,4 +34,12 @@ for clique_dir in ${motifs_dir}/*/; do
   ${ca_dir}/fimo.sh ${clique_dir} ${input_db}
 
 done
+
+
+# consolidate motif search results
+for i in ${motifs_dir}/*/fimo_out/fimo.tsv; do 
+  name=${i/#\/*motifs/}; 
+  egrep "#|^$|sequence" -v  $i | sed "s|$|    ${name/\/*/}|" ; 
+done > ${motifs_dir}/motif_search.tsv
+
 

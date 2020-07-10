@@ -39,7 +39,7 @@ done
 # consolidate motif search results
 for i in ${motifs_dir}/*/fimo_out/fimo.tsv; do 
   name=${i/#*motifs\//}; 
-  egrep "#|^$|sequence" -v  $i | sed "s|$|    ${name/\/*/}|" ; 
+  egrep "#|^$|sequence" -v  $i | sed "s|$|\t${name/\/*/}|" ; 
 done > ${motifs_dir}/motif_search.tsv
 
 

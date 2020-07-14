@@ -11,6 +11,7 @@ ca_dir=${git_dir}/src/clique_analysis
 
 motifs_dir=$1
 input_db=$2
+bg_file=${motifs_dir}/*.markov.bg
 
 
 if [ ! -d ${motifs_dir} ]; then
@@ -23,6 +24,11 @@ if [ ! -f ${input_db} ]; then
   exit -1;
 fi
 
+if [ ! -f ${bg_file} ]; then
+  echo "Error... background file not found ${bg_file}";
+  exit -1;
+fi
+
 
 # run motif search in dataset
 for clique_dir in ${motifs_dir}/*/; do
@@ -31,7 +37,7 @@ for clique_dir in ${motifs_dir}/*/; do
 
   echo "Processing... ${clique_num}"
   
-  ${ca_dir}/fimo.sh ${clique_dir} ${input_db}
+  ${ca_dir}/fimo.sh ${clique_dir} ${input_db} ${bg_file}
 
 done
 

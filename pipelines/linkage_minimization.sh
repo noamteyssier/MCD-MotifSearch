@@ -35,7 +35,7 @@ fi
 mkdir $outdir
 
 # copies input fasta to outdir
-cp -v ${input_fa} ${outdir}/{base_name}.fa
+cp -v ${input_fa} ${outdir}/${base_name}.fa
 
 # calculates linkages on fasta
 ${link_dir}/bin/distance_network ${input_fa} ${linkage_fn} 1

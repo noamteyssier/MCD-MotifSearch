@@ -2,13 +2,14 @@
 
 # Convenience script to take a fasta file to a full minimized clique set
 
-git_dir=${HOME}/projects/UndirectedNetwork
+#git_dir=${HOME}/projects/UndirectedNetwork
+git_dir=$1
 min_dir=${git_dir}/src/minimization
 link_dir=${git_dir}/src/linkage
 
-input_fa=$1
-base_name=$2
-outdir=$3
+input_fa=$2
+base_name=$3
+outdir=$4
 
 linkage_fn=${outdir}/${base_name}.edgelist
 dimacs_fn=${outdir}/${base_name}.dimacs
